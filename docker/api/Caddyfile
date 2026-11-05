@@ -1,0 +1,12 @@
+{
+	frankenphp
+	admin off
+}
+
+{$SERVER_NAME::8000} {
+	root * /app/public
+	encode zstd gzip
+	# No revelar el servidor (OWASP A05).
+	header -Server
+	php_server
+}

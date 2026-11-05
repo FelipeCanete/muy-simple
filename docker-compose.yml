@@ -1,0 +1,77 @@
+name: muy-simple
+
+x-hardening: &hardening
+  security_opt:
+    - no-new-privileges:true
+  cap_drop:
+    - ALL
+
+services:
+  api:
+    <<: *hardening
+    build:
+      context: .
+      dockerfile: docker/api/Dockerfile
+      target: prod
+    environment:
+      APP_NAME: "Mini Firma"
+      APP_ENV: production
+      APP_DEBUG: "false"
+      APP_KEY: ${APP_KEY:?Ejecuta 'make setup' para generar .env}
+      APP_URL: ${APP_URL:-http://localhost:8090}
+      APP_LOCALE: es
+      LOG_CHANNEL: stderr
+      LOG_LEVEL: info
+      DB_CONNECTION: sqlite
+      DB_DATABASE: /app/database/data/database.sqlite
+      SESSION_DRIVER: database
+      SESSION_SECURE_COOKIE: ${SESSION_SECURE_COOKIE:-false}
+      SESSION_SAME_SITE: strict
+      CACHE_STORE: database
+      QUEUE_CONNECTION: sync
+      MAIL_MAILER: log
+      SANCTUM_STATEFUL_DOMAINS: localhost:${WEB_PORT:-8090},127.0.0.1:${WEB_PORT:-8090}
+      WEBHOOK_SECRET: ${WEBHOOK_SECRET:?Ejecuta 'make setup' para generar .env}
+      DEMO_USER_EMAIL: ${DEMO_USER_EMAIL:-admin@demo.cl}
+      DEMO_USER_PASSWORD: ${DEMO_USER_PASSWORD:?Ejecuta 'make setup' para generar .env}
+    volumes:
+      - api-db:/app/database/data
+      - api-files:/app/storage/app/private
+    # Sin "ports": la API solo es accesible a través del proxy del front.
+    restart: unless-stopped
+
+  web:
+    <<: *hardening
+    build:
+      context: .
+      dockerfile: docker/web/Dockerfile
+      target: prod
+    ports:
+      - "${WEB_PORT:-8090}:8080"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # ---- Servicios de test (solo con: docker compose --profile test ...) ----
+  api-test:
+    profiles: ["test"]
+    build:
+      context: .
+      dockerfile: docker/api/Dockerfile
+      target: dev
+    volumes:
+      - ./logs:/app/test-logs
+
+  web-test:
+    profiles: ["test"]
+    build:
+      context: .
+      dockerfile: docker/web/Dockerfile
+      target: test
+    volumes:
+      - ./logs:/web/test-logs
+
+volumes:
+  api-db:
+  api-files:
