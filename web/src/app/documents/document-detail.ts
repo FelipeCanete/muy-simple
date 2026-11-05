@@ -22,7 +22,8 @@ import { DocumentsService } from './documents.service';
 
       <p class="muted">
         {{ d.original_name }} · {{ d.signers_signed }}/{{ d.signers_total }} firmas ·
-        <a [href]="fileUrl(d.id)" target="_blank" rel="noopener noreferrer">Ver PDF</a>
+        <!-- Sin "noreferrer": Sanctum necesita el Referer del panel para usar la sesión. -->
+        <a [href]="fileUrl(d.id)" target="_blank" rel="noopener">Ver PDF</a>
       </p>
       <p class="muted small">SHA-256: <code>{{ d.sha256 }}</code></p>
 

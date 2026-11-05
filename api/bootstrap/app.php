@@ -44,6 +44,9 @@ return Application::configure(basePath: dirname(__DIR__))
         // Sesión + CSRF de Sanctum para el SPA servido desde el mismo origen.
         $middleware->statefulApi();
         $middleware->append(SecurityHeaders::class);
+        // Esta app no tiene página de login en Laravel (vive en Angular): un
+        // invitado en /api/* recibe 401 problem+json, nunca un redirect.
+        $middleware->redirectGuestsTo(fn (Request $request) => $request->is('api/*') ? null : '/login');
     })
     ->withExceptions(function (Exceptions $exceptions) use ($problem): void {
         // Los errores de negocio son esperables: no ensucian el log de errores.

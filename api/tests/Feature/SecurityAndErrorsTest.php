@@ -18,6 +18,13 @@ it('no habilita CORS para orígenes externos', function () {
         ->assertHeaderMissing('Access-Control-Allow-Origin');
 });
 
+it('responde 401 (no 500 ni redirect) a una navegación del navegador sin sesión', function () {
+    // Caso real: abrir el PDF en otra pestaña sin cookie de sesión válida.
+    $response = $this->get('/api/documents/01a1ad3a-219d-7148-b2c3-12b40cc1d5ff/file', ['Accept' => 'text/html']);
+
+    assertProblem($response, 401, 'unauthenticated');
+});
+
 it('responde 404 en formato problem+json para rutas inexistentes', function () {
     assertProblem($this->getJson('/api/no-existe'), 404, 'not_found');
 });
