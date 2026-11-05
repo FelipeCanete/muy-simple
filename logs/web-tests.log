@@ -1,0 +1,62 @@
+Automatically searching for and using Vitest configuration file.
+Application bundle generation complete. [41.288 seconds] - 2026-11-05T19:53:33.417Z
+
+
+ RUN  v5.1.0 /web
+
+ ✓ |web| src/app/shared/rut.spec.ts > RUT > acepta 12.345.678-5 78ms
+ ✓ |web| src/app/shared/rut.spec.ts > RUT > acepta 12345678-5 7ms
+ ✓ |web| src/app/shared/rut.spec.ts > RUT > acepta 123456785 2ms
+ ✓ |web| src/app/shared/rut.spec.ts > RUT > acepta 10.000.013-K 4ms
+ ✓ |web| src/app/shared/rut.spec.ts > RUT > acepta 10000013-k 10ms
+ ✓ |web| src/app/shared/rut.spec.ts > RUT > acepta 10000004-0 5ms
+ ✓ |web| src/app/shared/rut.spec.ts > RUT > acepta 7.654.321-6 3ms
+ ✓ |web| src/app/shared/rut.spec.ts > RUT > rechaza "12345678-9" 4ms
+ ✓ |web| src/app/shared/rut.spec.ts > RUT > rechaza "" 5ms
+ ✓ |web| src/app/shared/rut.spec.ts > RUT > rechaza "5" 4ms
+ ✓ |web| src/app/shared/rut.spec.ts > RUT > rechaza "12A45678-5" 3ms
+ ✓ |web| src/app/shared/rut.spec.ts > RUT > rechaza "123456-0" 5ms
+ ✓ |web| src/app/shared/rut.spec.ts > RUT > rechaza "123456789-1" 4ms
+ ✓ |web| src/app/shared/rut.spec.ts > RUT > rechaza "12345678/5" 3ms
+ ✓ |web| src/app/shared/rut.spec.ts > RUT > normaliza el formato 3ms
+ ✓ |web| src/app/shared/rut.spec.ts > RUT > calcula el dígito verificador, incluidos K y 0 3ms
+ ✓ |web| src/app/shared/rut.spec.ts > RUT > rutValidator > no marca error en un campo vacío (eso lo hace required) 13ms
+ ✓ |web| src/app/shared/rut.spec.ts > RUT > rutValidator > marca error con un RUT inválido 5ms
+ ✓ |web| src/app/shared/rut.spec.ts > RUT > rutValidator > acepta un RUT válido 4ms
+ ✓ |web| src/app/core/auth.guard.spec.ts > guards > authGuard deja pasar con sesión 2233ms
+ ✓ |web| src/app/core/auth.guard.spec.ts > guards > authGuard manda al login sin sesión 94ms
+ ✓ |web| src/app/core/auth.guard.spec.ts > guards > guestGuard saca del login a quien ya tiene sesión 28ms
+ ✓ |web| src/app/core/http-error.interceptor.spec.ts > httpErrorInterceptor > convierte una respuesta problem+json en ApiError 265ms
+ ✓ |web| src/app/core/http-error.interceptor.spec.ts > httpErrorInterceptor > expone los errores de validación por campo 36ms
+ ✓ |web| src/app/core/http-error.interceptor.spec.ts > httpErrorInterceptor > usa un mensaje genérico si la respuesta no es problem+json 15ms
+ ✓ |web| src/app/core/http-error.interceptor.spec.ts > httpErrorInterceptor > informa cuando no hay conexión 41ms
+ ✓ |web| src/app/core/http-error.interceptor.spec.ts > httpErrorInterceptor > con 401 en el panel, limpia la sesión y redirige al login 37ms
+ ✓ |web| src/app/core/http-error.interceptor.spec.ts > httpErrorInterceptor > no redirige con 401 en la página pública de firma 33ms
+ ✓ |web| src/app/documents/document-new.spec.ts > DocumentNew > parte con un firmante y permite agregar y quitar 455ms
+ ✓ |web| src/app/documents/document-new.spec.ts > DocumentNew > no permite quedarse sin firmantes 63ms
+ ✓ |web| src/app/documents/document-new.spec.ts > DocumentNew > no permite superar el máximo de firmantes 79ms
+ ✓ |web| src/app/signing/sign-page.spec.ts > SignPage > muestra el documento y el botón de firma deshabilitado hasta aceptar 481ms
+ ✓ |web| src/app/signing/sign-page.spec.ts > SignPage > con HTTP 404 (invalid_token) muestra "Enlace no válido" 41ms
+ ✓ |web| src/app/documents/document-new.spec.ts > DocumentNew > valida email y RUT de cada firmante 72ms
+ ✓ |web| src/app/documents/document-new.spec.ts > DocumentNew > valida el archivo antes de enviarlo 62ms
+ ✓ |web| src/app/signing/sign-page.spec.ts > SignPage > con HTTP 410 (token_expired) muestra "Enlace expirado" 41ms
+ ✓ |web| src/app/signing/sign-page.spec.ts > SignPage > con HTTP 429 (too_many_requests) muestra "Demasiados intentos" 30ms
+ ✓ |web| src/app/signing/sign-page.spec.ts > SignPage > indica cuando el firmante ya firmó 33ms
+ ✓ |web| src/app/documents/document-new.spec.ts > DocumentNew > no envía nada si el formulario es inválido 41ms
+ ✓ |web| src/app/signing/sign-page.spec.ts > SignPage > firma (pidiendo antes la cookie CSRF) y muestra la confirmación 85ms
+ ✓ |web| src/app/signing/sign-page.spec.ts > SignPage > si otro canal ya registró la firma (409), recarga el estado real 40ms
+ ✓ |web| src/app/signing/sign-page.spec.ts > SignPage > muestra un error recuperable si la firma falla por otro motivo 42ms
+ ✓ |web| src/app/documents/document-new.spec.ts > DocumentNew > envía el formulario como multipart y muestra los enlaces generados 128ms
+ ✓ |web| src/app/documents/document-new.spec.ts > DocumentNew > muestra los errores de validación que devuelve la API 79ms
+
+ Test Files  5 passed (5)
+      Tests  44 passed (44)
+   Start at  19:53:34
+   Duration  71.90s (transform 52%, environment 27%, setup 14%, import 6%, tests 1%)
+
+JUNIT report written to /web/test-logs/junit-web.xml
+npm notice
+npm notice New major version of npm available! 11.19.1 -> 12.2.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2
+npm notice To update run: npm install -g npm@12.2.2
+npm notice
